@@ -264,7 +264,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		}
 
 		msg := SlackMessage{
-			Title:  fmt.Sprintf("%s restarted in %s\nPod: %s\nNamespace: %s\n", containerName, c.slack.ClusterName, pod.Name, pod.Namespace),
+			Title:  fmt.Sprintf("%s restarted once in last 10 mins in %s!!\nPod: %s\nNamespace: %s\n", containerName, c.slack.ClusterName, pod.Name, pod.Namespace),
 			Footer: fmt.Sprintf("%s, %s, %s", c.slack.ClusterName, pod.Name, pod.Namespace),
 			Text:   podStatus + podEvents + nodeEvents + containerLogs,
 		}
@@ -339,7 +339,7 @@ func (c *Controller) getContainerLogs(pod *v1.Pod, containerStatus v1.ContainerS
 		Container:  containerStatus.Name,
 		Previous:   true,
 		Timestamps: true,
-		TailLines:  pointer.Int64Ptr(50),
+		TailLines:  pointer.Int64Ptr(100),
 	}
 	rc, err := c.clientset.CoreV1().Pods(pod.Namespace).GetLogs(pod.Name, logOptions).Stream(context.TODO())
 	if err != nil {
