@@ -232,6 +232,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		restartReason := printContainerLastStateReason(status)
 
 		containerSpec := pod.Spec.Containers[i]
+		containerName := containerSpec.Name
 		containerResource, err := getContainerResource(containerSpec)
 		if err != nil {
 			return err
@@ -263,7 +264,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		}
 
 		msg := SlackMessage{
-			Title:  fmt.Sprintf("Pod restarted!\ncluster: %s, pod: %s, namespace: %s", c.slack.ClusterName, pod.Name, pod.Namespace),
+			Title:  fmt.Sprintf("%s restarted in %s\nPod: %s\nNamespace: %s\n", containerName, c.slack.ClusterName, pod.Name, pod.Namespace),
 			Footer: fmt.Sprintf("%s, %s, %s", c.slack.ClusterName, pod.Name, pod.Namespace),
 			Text:   podStatus + podEvents + nodeEvents + containerLogs,
 		}
