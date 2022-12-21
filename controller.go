@@ -232,7 +232,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		restartReason := printContainerLastStateReason(status)
 
 		containerSpec := pod.Spec.Containers[i]
-		containerName := containerSpec.Name
+		containerName := status.Name
 		containerResource, err := getContainerResource(containerSpec)
 		if err != nil {
 			return err
