@@ -18,8 +18,8 @@ ignoredNamespaces: ""
 ignoredPodNamePrefixes: ""
 
 image:
-  repository: devopsairwallex/k8s-pod-restart-info-collector
-  tag: "v1.1.0"
+  repository: registry.dev.rafay-edge.net/rafay/k8s-pod-restart-collector
+  tag: "v1.2.0-alpha"
 
 resources: 
   limits:
