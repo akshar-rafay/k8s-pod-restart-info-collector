@@ -266,7 +266,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		msg := SlackMessage{
 			Title:  fmt.Sprintf("%s restarted once in last 10 mins in %s!!\nPod: %s\nNamespace: %s\n", containerName, c.slack.ClusterName, pod.Name, pod.Namespace),
 			Footer: fmt.Sprintf("%s, %s, %s", c.slack.ClusterName, pod.Name, pod.Namespace),
-			Text:   podStatus + podEvents + nodeEvents + containerLogs,
+			Text:   podStatus + podEvents + containerLogs,
 		}
 		// klog.Infoln(msg.Title + "\n" + msg.Text + "\n" + msg.Footer)
 		slackChannel := getSlackChannelFromPod(pod)
