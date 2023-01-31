@@ -256,7 +256,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 			containerLogs = "• No Logs Before Restart\n"
 		} else {
 			// Slack attachment text will be truncated when > 8000 chars
-			maxLogLength := 7500 - len(podStatus+podEvents+nodeEvents)
+			maxLogLength := 8000 - len(podStatus+podEvents+nodeEvents)
 			if maxLogLength > 0 && len(containerLogs) > maxLogLength {
 				containerLogs = containerLogs[len(containerLogs)-maxLogLength:]
 			}
@@ -339,7 +339,7 @@ func (c *Controller) getContainerLogs(pod *v1.Pod, containerStatus v1.ContainerS
 		Container:  containerStatus.Name,
 		Previous:   true,
 		Timestamps: true,
-		TailLines:  pointer.Int64Ptr(100),
+		TailLines:  pointer.Int64Ptr(75),
 	}
 	rc, err := c.clientset.CoreV1().Pods(pod.Namespace).GetLogs(pod.Name, logOptions).Stream(context.TODO())
 	if err != nil {

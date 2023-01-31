@@ -1,4 +1,4 @@
-FROM golang:1.17.5-alpine3.15 AS builder
+FROM golang:1.19.5 AS builder
 COPY go.* /
 RUN go mod download
 COPY *.go /
